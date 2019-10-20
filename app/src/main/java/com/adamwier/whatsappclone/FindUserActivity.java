@@ -9,8 +9,10 @@ import android.database.Cursor;
 import android.os.Bundle;
 import android.provider.ContactsContract;
 import android.telephony.TelephonyManager;
-import android.widget.LinearLayout;
 
+import com.adamwier.whatsappclone.User.UserListAdapter;
+import com.adamwier.whatsappclone.User.UserObject;
+import com.adamwier.whatsappclone.Utils.CountryToPhonePrefix;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
@@ -25,6 +27,7 @@ public class FindUserActivity extends AppCompatActivity {
     private RecyclerView mUserList;
     private RecyclerView.Adapter mUserListAdapter;
     private RecyclerView.LayoutManager mUserListLayourManager;
+
     ArrayList<UserObject> contactList, userList;
 
     @Override
@@ -56,7 +59,7 @@ public class FindUserActivity extends AppCompatActivity {
                 phone = ISOPRefix + phone;
             }
 
-            UserObject mContact = new UserObject(name, phone);
+            UserObject mContact = new UserObject("", name, phone);
             contactList.add(mContact);
             mUserListAdapter.notifyDataSetChanged();;
 System.out.println(mContact);
@@ -80,7 +83,7 @@ System.out.println(mContact);
                         if (childsnapshot.child("name").getValue() != null){
                             name = childsnapshot.child("name").getValue().toString();
                         }
-                        UserObject mUser = new UserObject(name, phone);
+                        UserObject mUser = new UserObject(childsnapshot.getKey(), name, phone);
 
                         if (name.equals(phone)){
                             for(UserObject mContactIterator : contactList){

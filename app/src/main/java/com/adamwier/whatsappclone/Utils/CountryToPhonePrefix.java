@@ -1,4 +1,4 @@
-package com.adamwier.whatsappclone;
+package com.adamwier.whatsappclone.Utils;
 
 import java.util.HashMap;
 import java.util.Map;
